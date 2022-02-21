@@ -3,7 +3,6 @@ import os
 import cv2
 from pdf2image import convert_from_path
 import pandas as pd
-import openpyxl
 cwd = os.getcwd()
 
 print(cwd)
@@ -51,13 +50,15 @@ def turn_to_jpg(source_path,target_path):
 
     for file in pdf_files:
         images = convert_from_path(source_path+"/"+file)
-        print(file[:-4])
+        
         index_of_new_name = old_names.index(file[:-4]) if file[:-4] in old_names else None
         if index_of_new_name != None:
             new_name=new_names[index_of_new_name]
+            print(new_name)
             # Save pages as images in the pdf
             images[0].save(target_path+"/"+new_name+".jpg", 'JPEG')
         else:
+            print(file[:-4])
             images[0].save(target_path+"/"+file[:-4]+".jpg", 'JPEG')
 
     files = os.listdir(source_path)
